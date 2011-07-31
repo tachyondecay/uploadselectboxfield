@@ -107,6 +107,13 @@
 			if($this->get('allow_multiple_selection') == 'yes') $input->setAttribute('checked', 'checked');
 			$label->setValue(__('%s Allow selection of multiple options', array($input->generate())));
 			$wrapper->appendChild($label);
+			
+			## Toggle preview of selected images
+			$label = Widget::Label();
+			$input = Widget::Input('fields['.$this->get('sortorder').'][preview_images]', 'yes', 'checkbox');
+			if($this->get('preview_images') == 'yes') $input->setAttribute('checked', 'checked');
+			$label->setValue(__('%s Display a preview of the selected image', array($input->generate())));
+			$wrapper->appendChild($label);
 
 			$this->appendShowColumnCheckbox($wrapper);
 
@@ -128,10 +135,14 @@
 			if($this->get('allow_multiple_selection') == 'yes') $fieldname .= '[]';
 			
 			$fieldAttributes = array(
-				'data-path' => $this->get('destination'),
+				'data-path' => substr($this->get('destination'),10),
 			);
 			if($this->get('allow_multiple_selection') == 'yes') {
 				$fieldAttributes['multiple'] = 'multiple';
+			}
+			if($this->get('preview_images') == 'yes') {
+				
+				$fieldAttributes['class'] = 'preview-images';
 			}
 
 			$label = Widget::Label($this->get('label'));
@@ -238,6 +249,7 @@
 			$fields['field_id'] = $id;
 			$fields['destination'] = $this->get('destination');
 			$fields['allow_multiple_selection'] = ($this->get('allow_multiple_selection') ? $this->get('allow_multiple_selection') : 'no');
+			$fields['preview_images'] = ($this->get('preview_images') ? $this->get('preview_images') : 'no');
 
 			$this->_engine->Database->query("DELETE FROM `tbl_fields_".$this->handle()."` WHERE `field_id` = '$id' LIMIT 1");
 			return $this->_engine->Database->insert($fields, 'tbl_fields_' . $this->handle());

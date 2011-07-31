@@ -1,18 +1,12 @@
-
-div.field-uploadselectbox {
-	background: #E4E4E0;
-	padding: 0.5em;
-}
-
-div.field-uploadselectbox label {
-	margin-top: 0;
-}
-
 p.uploadselectbox-preview {
+	border-bottom: 1px solid #DDDDCC;
 	font-size: 0.9em;
 	margin-bottom: 0;
+	padding-bottom: 5px;
 }
 
 p.uploadselectbox-preview img {
 	display: block;
+	max-height: 100px;
+	max-width: 300px;
 }
