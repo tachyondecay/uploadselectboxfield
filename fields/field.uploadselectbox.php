@@ -126,16 +126,9 @@
 
 			$fieldname = 'fields'.$fieldnamePrefix.'['.$this->get('element_name').']'.$fieldnamePostfix;
 			if($this->get('allow_multiple_selection') == 'yes') $fieldname .= '[]';
-			
-			$fieldAttributes = array(
-				'data-path' => $this->get('destination'),
-			);
-			if($this->get('allow_multiple_selection') == 'yes') {
-				$fieldAttributes['multiple'] = 'multiple';
-			}
 
 			$label = Widget::Label($this->get('label'));
-			$label->appendChild(Widget::Select($fieldname, $options, $fieldAttributes));
+			$label->appendChild(Widget::Select($fieldname, $options, ($this->get('allow_multiple_selection') == 'yes' ? array('multiple' => 'multiple') : NULL)));
 
 			if($flagWithError != NULL) $wrapper->appendChild(Widget::wrapFormElementWithError($label, $flagWithError));
 			else $wrapper->appendChild($label);

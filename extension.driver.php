@@ -10,31 +10,6 @@
 										   'website' => 'http://nick-dunn.co.uk')
 				 		);
 		}
-		
-		public function getSubscribedDelegates() {
-			return array(
-				array(
-					'page' => '/backend/',
-					'delegate' => 'AdminPagePreGenerate',
-					'callback' => '__appendAssets'
-				),
-			);
-		}
-		
-		public function __appendAssets(&$context) {
-			if(class_exists('Administration')
-				&& Administration::instance() instanceof Administration
-				&& Administration::instance()->Page instanceof HTMLPage
-			) {
-				$callback = Administration::instance()->getPageCallback();
-
-				// Let the jQuery magic flow 
-				if($context['oPage'] instanceof contentPublish) {
-					Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/uploadselectboxfield/assets/uploadselectboxfield.publish.css', 'screen', 100, false);
-					Administration::instance()->Page->addScriptToHead(URL . '/extensions/uploadselectboxfield/assets/uploadselectboxfield.publish.js', 200, false);
-				}
-			}
-		}
 
 		public function uninstall(){
 			Symphony::Database()->query("DROP TABLE `tbl_fields_uploadselectbox`");
