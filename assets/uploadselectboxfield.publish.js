@@ -1,5 +1,7 @@
 /*
- * Autocomplete Tags
+ * Uploadselectboxfield
+ * 
+ * For those fields where it is enabled, this loads a preview of the selected image.
  */
 
 jQuery(document).ready(function($) {

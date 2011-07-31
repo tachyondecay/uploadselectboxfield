@@ -4,8 +4,8 @@
 
 		public function about(){
 			return array('name' => 'Field: Uploaded File Select Box',
-						 'version' => '1.1.3',
-						 'release-date' => '2011-06-24',
+						 'version' => '1.2',
+						 'release-date' => '',
 						 'author' => array('name' => 'Nick Dunn, Brendan Abbott',
 										   'website' => 'http://nick-dunn.co.uk')
 				 		);
@@ -47,6 +47,7 @@
 				`id` int(11) unsigned NOT NULL auto_increment,
 				`field_id` int(11) unsigned NOT NULL,
 				`allow_multiple_selection` enum('yes','no') NOT NULL default 'no',
+				`preview_images` enum('yes','no') NOT NULL default 'no',
 				`destination` varchar(255) NOT NULL,
 				PRIMARY KEY  (`id`),
 				UNIQUE KEY `field_id` (`field_id`)
@@ -54,4 +55,15 @@
 
 		}
 
+
+		public function update($previousVersion){
+			## Add `preview_images` column
+			if(version_compare($previousVersion, '1.2', '<')) {
+				Symphony::Database()->query("ALTER TABLE `tbl_fields_uploadselectbox` 
+					ADD `preview_images` enum('yes','no') NOT NULL default 'no'"
+				);
+			}
+
+			return true;
+		}
 	}
